@@ -1,77 +1,168 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-  <meta charset='utf-8'>
+	<head>
+		<meta name="description" content="A simple tool to convert BBCode to Markdown (Reddit formatting) code.">
+		<META http-equiv="Content-Type" CONTENT="text/html; charset=utf-8">
+		<title>
+			BBCode -> Reddit converter
+		</title>
+		<style type="text/css" media="screen">
 
-  <title>JonDum/BBCode-To-Markdown-Converter @ GitHub</title>
+			html, body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				background: #e0e0e0;
+				font-family: Georgia;
+				overflow:hidden;
+			}
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #249e41;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #db61be; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #db61be; }
-    h3 { text-align: center; color: #db61be; }
-    a { color: #db61be; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+			.container
+			{
+				width:100%;
+				height: 100%;
+			}
 
-<body>
-  <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+			table
+			{
+				width: 100%;
+				height: 100%;
+			}
+		
+			tr, td
+			{
+				height: 100%;
+			}
+		
+			.middle_td
+			{
+				width: 20px;
+			}
+		
+			.ta_container
+			{
+				width: 100%;
+				height: 100%;
+				padding: 80px 20px 20px 20px;
+			
+				box-sizing: border-box;
+				-webkit-box-sizing:border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			
+			}
 
-  <div id="container">
+			textarea {
+			
+				-moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+			
+				border: #999 solid 1px;
+			
+				padding: 10px;
+			
+				transition: all 0.5s ease-in-out;
+				-webkit-transition: all 0.5s ease-in-out;
+				-moz-transition: all 0.5s ease-in-out;
 
-    <div class="download">
-      <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
+				-webkit-box-shadow: 0 1px #fff;
+				-moz-box-shadow: 0 1px #fff;
+				-box-shadow: 0 1px #fff;
+			
+				resize: none;
+			
+				width: 100%;
+				height: 100%;
+			
+				box-sizing: border-box;
+				-webkit-box-sizing:border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			
+			}
 
-    <h1><a href="http://github.com/JonDum/BBCode-To-Markdown-Converter">BBCode-To-Markdown-Reddit-Converter</a>
-      <span class="small">by <a href="http://github.com/JonDum">JonDum</a></span></h1>
-
-    <div class="description">
-      
-    </div>
-
-    <h2>Authors</h2>
-<p>Jonathan Dumaine (jonathan.dumaine@dumstruck.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Jonathan Dumaine (jonathan.dumaine@dumstruck.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter/zipball/master">zip</a> or
-      <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/JonDum/BBCode-To-Markdown-Converter</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter">JonDum/BBCode-To-Markdown-Converter</a>
-    </div>
-
-  </div>
-
-  
-</body>
+			textarea:focus
+			{
+				-moz-box-shadow: 0 0 8px rgba(82,168,236,0.5);
+				-webkit-box-shadow: 0 0 8px
+				rgba(82,168,236,0.5);
+				border-color: rgba(82,168,236,0.75)!important;
+			}
+			
+			.instructions {
+				position: absolute;
+				padding-left: 25px;
+				font-family: Arial;
+				width: 2000px;
+			}
+			
+			h1
+			{
+				color: #454545;
+				text-shadow: 0 1px #fff;
+				display:inline;
+			}
+			
+			
+			span
+			{
+				margin-left: 50px;
+			}
+			
+		</style>
+	
+		<script type="text/javascript" charset="utf-8">
+						
+			function convert()
+			{
+				var left = document.getElementById("left_ta");
+				var right = document.getElementById("right_ta");
+		 
+		 		var left_value = left.value;
+		
+				left_value = left_value
+				.replace(/\[b\](.+?)\[\/b\]/gmi, "**$1**") //bold; replace [b] $1 [/b] with ** $1 **
+				.replace(/\[\u\](.+?)\[\/\u\]/gmi, "*$1*")  //underline; replace [u] $1 [/u] with * $1 *  
+				.replace(/\[s\](.+?)\[\/s\]/gmi, "~~	$1~~") //strikethrough; replace [s] $1 [/s] with ~~ $1 ~~
+				.replace(/\[color\=.+?\](.+?)\[\/color\]/gmi, "$1") //remove [color] tags
+				.replace(/(\n)\[\*\]/gmi, "$1* ") //lists; replcae lists with + unordered lists.
+				.replace(/\[\/*list\]/gmi, '')
+				.replace(/\[url=(.+?)\](.+?)\[\/url\]/gmi,'[$2]($1)');
+			
+				right.value = left_value;	
+				
+				console.log('converted');
+		
+			}
+			
+		
+			
+		</script>
+	</head>
+	<body>
+		  <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+		<div class="instructions">
+			<h1>BBCode to Markdown (Reddit) Converter</h1><div>Paste your BBCode into the left, Markdown appears on the right.<br/> Please keep in mind that not all BBCode constructs are implemented yet.</div>
+		</div>
+		<div class="container">
+			<table border="0">
+				<tr>
+					<td>
+						<div class="ta_container">
+							<textarea id="left_ta" value="" onChange="convert()" onKeyUp="convert()"></textarea>
+						</div>
+					</td>
+					<td class="middle_td">
+						-->
+					</td>
+					<td>
+						<div class="ta_container">
+							<textarea id="right_ta"></textarea>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
 </html>
