@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="description" content="A simple tool to convert BBCode to Markdown (Reddit formatting) code.">
+		<META http-equiv="Content-Type" CONTENT="text/html; charset=utf-8">
+		<title>
+			BBCode -> Reddit converter
+		</title>
+		<style type="text/css" media="screen">
+
+			html, body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				background: #e0e0e0;
+				font-family: Georgia;
+				overflow:hidden;
+			}
+
+			.container
+			{
+				width:100%;
+				height: 100%;
+			}
+
+			table
+			{
+				width: 100%;
+				height: 100%;
+			}
+		
+			tr, td
+			{
+				height: 100%;
+			}
+		
+			.middle_td
+			{
+				width: 20px;
+			}
+		
+			.ta_container
+			{
+				width: 100%;
+				height: 100%;
+				padding: 80px 20px 20px 20px;
+			
+				box-sizing: border-box;
+				-webkit-box-sizing:border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			
+			}
+
+			textarea {
+			
+				-moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+			
+				border: #999 solid 1px;
+			
+				padding: 10px;
+			
+				transition: all 0.5s ease-in-out;
+				-webkit-transition: all 0.5s ease-in-out;
+				-moz-transition: all 0.5s ease-in-out;
+
+				-webkit-box-shadow: 0 1px #fff;
+				-moz-box-shadow: 0 1px #fff;
+				-box-shadow: 0 1px #fff;
+			
+				resize: none;
+			
+				width: 100%;
+				height: 100%;
+			
+				box-sizing: border-box;
+				-webkit-box-sizing:border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			
+			}
+
+			textarea:focus
+			{
+				-moz-box-shadow: 0 0 8px rgba(82,168,236,0.5);
+				-webkit-box-shadow: 0 0 8px
+				rgba(82,168,236,0.5);
+				border-color: rgba(82,168,236,0.75)!important;
+			}
+			
+			.instructions {
+				position: absolute;
+				padding-left: 25px;
+				font-family: Arial;
+				width: 2000px;
+			}
+			
+			h1
+			{
+				color: #454545;
+				text-shadow: 0 1px #fff;
+				display:inline;
+			}
+			
+			
+			span
+			{
+				margin-left: 50px;
+			}
+			
+		</style>
+	
+		<script type="text/javascript" charset="utf-8">
+						
+			function convert()
+			{
+				var left = document.getElementById("left_ta");
+				var right = document.getElementById("right_ta");
+		 
+		 		var left_value = left.value;
+		
+				left_value = left_value
+				.replace(/\[b\](.+?)\[\/b\]/gmi, "**$1**") //bold; replace [b] $1 [/b] with ** $1 **
+				.replace(/\[\u\](.+?)\[\/\u\]/gmi, "*$1*")  //underline; replace [u] $1 [/u] with * $1 *  
+				.replace(/\[s\](.+?)\[\/s\]/gmi, "~~	$1~~") //strikethrough; replace [s] $1 [/s] with ~~ $1 ~~
+				.replace(/\[color\=.+?\](.+?)\[\/color\]/gmi, "$1") //remove [color] tags
+				.replace(/(\n)\[\*\]/gmi, "$1* ") //lists; replcae lists with + unordered lists.
+				.replace(/\[\/*list\]/gmi, '')
+				.replace(/\[url=(.+?)\](.+?)\[\/url\]/gmi,'[$2]($1)');
+			
+				right.value = left_value;	
+				
+				console.log('converted');
+		
+			}
+			
+		
+			
+		</script>
+	</head>
+	<body>
+		<div class="instructions">
+			<h1>BBCode to Markdown (Reddit) Converter</h1><div>Paste your BBCode into the left, Markdown appears on the right.<br/> Please keep in mind that not all BBCode constructs are implemented yet.</div>
+		</div>
+		<div class="container">
+			<table border="0">
+				<tr>
+					<td>
+						<div class="ta_container">
+							<textarea id="left_ta" value="" onChange="convert()" onKeyUp="convert()"></textarea>
+						</div>
+					</td>
+					<td class="middle_td">
+						-->
+					</td>
+					<td>
+						<div class="ta_container">
+							<textarea id="right_ta"></textarea>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
