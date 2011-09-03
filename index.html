@@ -6,6 +6,7 @@
 		<title>
 			BBCode -> Reddit converter
 		</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
 		<style type="text/css" media="screen">
 
 			html, body {
@@ -54,39 +55,40 @@
 
 			textarea {
 			
-				-moz-border-radius: 3px;
-				-webkit-border-radius: 3px;
-				border-radius: 3px;
-			
-				border: #999 solid 1px;
-			
-				padding: 10px;
-			
+
 				transition: all 0.5s ease-in-out;
 				-webkit-transition: all 0.5s ease-in-out;
 				-moz-transition: all 0.5s ease-in-out;
-
-				-webkit-box-shadow: 0 1px #fff;
-				-moz-box-shadow: 0 1px #fff;
-				-box-shadow: 0 1px #fff;
 			
-				resize: none;
 			
 				width: 100%;
 				height: 100%;
+
+				
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				padding: 8px;
+				-webkit-box-shadow: 0 1px #fff;
+				-moz-box-shadow: 0 1px #fff;
+				box-shadow: 0 1px #fff;
 			
-				box-sizing: border-box;
-				-webkit-box-sizing:border-box;
-				-moz-box-sizing: border-box;
-				-ms-box-sizing: border-box;
+				color: #222;
+				outline: none;
+				_width: 100%;
+				overflow-x: hidden;
+				overflow-y: auto;
+				white-space: pre-wrap;
+				
+				resize: none;
 			
 			}
 
 			textarea:focus
 			{
 				-moz-box-shadow: 0 0 8px rgba(82,168,236,0.5);
-				-webkit-box-shadow: 0 0 8px
-				rgba(82,168,236,0.5);
+				-webkit-box-shadow: 0 0 8px rgba(82,168,236,0.5);
 				border-color: rgba(82,168,236,0.75)!important;
 			}
 			
@@ -100,6 +102,7 @@
 			
 			h1
 			{
+				font-size: 2em;
 				color: #454545;
 				text-shadow: 0 1px #fff;
 				display:inline;
@@ -109,6 +112,13 @@
 			span
 			{
 				margin-left: 50px;
+			}
+			
+			@-moz-document url-prefix() {
+			   		.ta_container
+					{
+						padding: 105px 20px 20px 20px;
+					}
 			}
 			
 		</style>
@@ -122,14 +132,37 @@
 		 
 		 		var left_value = left.value;
 		
+				//preprocessing for tf2toolbox BBCode
+				if(left_value.search(/TF2Toolbox/gmi) != -1)
+				{
+					left_value = left_value
+					.replace(/(\(List generated at .+?\[\/URL\]\))((?:.|\n)+)/gmi, "$2\n\n\n$1") //Move TF2Toolbox link to bottom 
+					.replace("(List generated at", "(List generated from")
+					.replace(/[^\S\n]+\(List/gmi,'(List')
+					.replace(/\[b\]\[u\](.+?)\[\/u\]\[\/b\]/gmi,'[b]$1[/b]\n') //Fix double emphasized titles
+					.replace(/(\n)\[\*\]\[b\](.+?)\[\/b\]/gmi, "$1\[\*\] $2");
+				}
+		
+				//general BBcode conversion
 				left_value = left_value
-				.replace(/\[b\](.+?)\[\/b\]/gmi, "**$1**") //bold; replace [b] $1 [/b] with ** $1 **
-				.replace(/\[\u\](.+?)\[\/\u\]/gmi, "*$1*")  //underline; replace [u] $1 [/u] with * $1 *  
-				.replace(/\[s\](.+?)\[\/s\]/gmi, "~~	$1~~") //strikethrough; replace [s] $1 [/s] with ~~ $1 ~~
-				.replace(/\[color\=.+?\](.+?)\[\/color\]/gmi, "$1") //remove [color] tags
-				.replace(/(\n)\[\*\]/gmi, "$1* ") //lists; replcae lists with + unordered lists.
-				.replace(/\[\/*list\]/gmi, '')
-				.replace(/\[url=(.+?)\](.+?)\[\/url\]/gmi,'[$2]($1)');
+					.replace(/\[b\]((?:.|\n)+?)\[\/b\]/gmi, "**$1**") //bold; replace [b] $1 [/b] with ** $1 **
+					.replace(/\[\u\]((?:.|\n)+?)\[\/\u\]/gmi, "*$1*")  //underline; replace [u] $1 [/u] with * $1 *  
+					.replace(/\[s\]((?:.|\n)+?)\[\/s\]/gmi, "~~	$1~~") //strikethrough; replace [s] $1 [/s] with ~~ $1 ~~
+					.replace(/\[color\=.+?\]((?:.|\n)+?)\[\/color\]/gmi, "$1") //remove [color] tags
+					.replace(/(\n)\[\*\]/gmi, "$1* ") //lists; replcae lists with + unordered lists.
+					.replace(/\[\/*list\]/gmi, '')
+					.replace(/\[url=(.+?)\]((?:.|\n)+?)\[\/url\]/gmi,'[$2]($1)');
+				
+				//post processing for tf2toolbox BBCode
+				if(left_value.search(/TF2Toolbox/gmi) != -1)
+				{
+					left_value = left_value
+					.replace("/bbcode_lookup.php))", "/bbcode_lookup.php)) and converted to /r/tf2trade ready Markdown by Dum's [converter](http://jondum.github.com/BBCode-To-Markdown-Converter/).") //add a linkback
+					.replace(/\*\*.+?\*\*[\s]+?None[\s]{2}/gmi, ""); //remove empty sections
+			
+				}
+		
+				
 			
 				right.value = left_value;	
 				
