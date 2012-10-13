@@ -151,6 +151,7 @@
 					.replace(/\[color\=.+?\]((?:.|\n)+?)\[\/color\]/gmi, "$1") //remove [color] tags
 					.replace(/(\n)\[\*\]/gmi, "$1* ") //lists; replcae lists with + unordered lists.
 					.replace(/\[\/*list\]/gmi, '')
+					.replace(/\[img\]((?:.|\n)+?)\[\/img\]/gmi,'![]($1)')
 					.replace(/\[url=(.+?)\]((?:.|\n)+?)\[\/url\]/gmi,'[$2]($1)');
 				
 				//post processing for tf2toolbox BBCode
