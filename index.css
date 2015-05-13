@@ -59,7 +59,7 @@ textarea {
   resize: none;
 }
 
-textarea: focus {
+textarea:focus {
   -moz-box-shadow: 0 0 8px rgba(82,168,236,0.5);
   -webkit-box-shadow: 0 0 8px rgba(82,168,236,0.5);
   border-color: rgba(82,168,236,0.75) !important;
