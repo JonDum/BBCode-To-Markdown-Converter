@@ -1,39 +1,40 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta name="description" content="A simple tool to convert BBCode to Markdown (Reddit formatting) code.">
-		<META http-equiv="Content-Type" CONTENT="text/html; charset=utf-8">
-		<title>
-			BBCode -> Reddit converter
-		</title>
-		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
-		<script type="text/javascript" src="index.js"></script>
-		<link rel="stylesheet" type="text/css" href="index.css">
-
-	</head>
-	<body>
-		  <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 2" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-		<div class="instructions">
-			<h1>BBCode to Markdown (Reddit) Converter</h1><div>Paste your BBCode into the left, Markdown appears on the right.<br/> Please keep in mind that not all BBCode constructs are implemented yet.</div>
-		</div>
-		<div class="container">
-			<table border="0">
-				<tr>
-					<td>
-						<div class="ta_container">
-							<textarea id="left_ta" value="" onChange="convert()" onKeyUp="convert()"></textarea>
-						</div>
-					</td>
-					<td class="middle_td">
-						-->
-					</td>
-					<td>
-						<div class="ta_container">
-							<textarea id="right_ta"></textarea>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>BBCode -> Markdown (Reddit)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="fork" class="text-center">
+      <a href="http://github.com/JonDum/BBCode-To-Markdown-Converter">Fork me on Github</a>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col text-center">
+          <h1>BBCode to Markdown (Reddit) Converter</h1>
+          <h3><small class="text-muted">Paste your BBCode into the left, Markdown appears on the right.</small></h3>
+          <h3><small class="text-primary">Please keep in mind that not all BBCode constructs are implemented yet.</small></h3><br/>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" id="boxing">
+      <div class="row">
+        <div class="col">
+          <textarea id="left_ta" value="" onChange="convert()" onKeyUp="convert()"></textarea>
+        </div>
+        <div class="col-md-auto">
+        >
+        </div>
+        <div class="col">
+          <textarea id="right_ta"></textarea>
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="copybtn">Copy Above Text</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="copy.min.js"></script>
+  </body>
 </html>
