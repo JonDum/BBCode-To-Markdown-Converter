@@ -31,8 +31,12 @@ function convert() {
     .replace(/\[img\]((?:.|\n)+?)\[\/img\]/gmi,'![$1]($1)')
     .replace(/\[url=(.+?)\]((?:.|\n)+?)\[\/url\]/gmi,'[$2]($1)')
     .replace(/\[code\](.*?)\[\/code\]/gmi, '`$1`')
-    .replace(/\[code\]((?:.|\n)+?)\[\/code\]/gmi, function (match, p1, offset, string) {return p1.replace(/^/gmi, '    ');});
-
+    .replace(/\[code\]((?:.|\n)+?)\[\/code\]/gmi, function (match, p1, offset, string) {return p1.replace(/^/gmi, '    ');})
+    .replace(/\[php\](.*?)\[\/php\]/gmi, '`$1`')
+    .replace(/\[php\]((?:.|\n)+?)\[\/php\]/gmi, function (match, p1, offset, string) {return p1.replace(/^/gmi, '    ');})
+    .replace(/\[pawn\](.*?)\[\/pawn\]/gmi, '`$1`')
+    .replace(/\[pawn\]((?:.|\n)+?)\[\/pawn\]/gmi, function (match, p1, offset, string) {return p1.replace(/^/gmi, '    ');});
+  
   //post processing for tf2toolbox BBCode
   if(left_value.search(/TF2Toolbox/gmi) != -1) {
     left_value = left_value
